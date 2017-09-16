@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { User } from '../shared/models/user';
 import { UserService } from '../shared/services/user.service';
@@ -15,9 +15,11 @@ export class AboutUserComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService ) { }
+    private userService: UserService,
+    private router: Router
+  ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // grab the current username form route
     const username = this.route.snapshot.params['username'];
 
@@ -27,4 +29,8 @@ export class AboutUserComponent implements OnInit {
     console.log(this.user);
   }
 
+  goBack(): void {
+    // window.history.back();
+    this.router.navigate(['/about']);
+  }
 }
