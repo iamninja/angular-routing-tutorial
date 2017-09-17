@@ -10,6 +10,7 @@ export class AboutSectionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }
