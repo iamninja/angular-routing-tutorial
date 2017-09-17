@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { dashboardRouting } from './dashboard.routing';
 import { UserService } from '../shared/services/user.service';
@@ -11,6 +12,7 @@ import { DashboardUserDetailsComponent } from './users/dashboard-user-details/da
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     dashboardRouting
   ],
   declarations: [

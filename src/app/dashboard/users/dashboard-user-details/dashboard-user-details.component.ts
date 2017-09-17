@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { User } from '../../../shared/models/user';
 import { UserService } from '../../../shared/services/user.service';
@@ -13,10 +13,12 @@ import { UserService } from '../../../shared/services/user.service';
 export class DashboardUserDetailsComponent implements OnInit {
 
   user: User;
+  editName: string;
 
   constructor(
     private service: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -24,10 +26,19 @@ export class DashboardUserDetailsComponent implements OnInit {
       const username = params['username'];
 
       this.service.getUser(username).then(user => {
-        console.log(user);
-        return this.user = user;
+        this.user = user;
+        this.editName = user.name;
       });
     });
+  }
+
+  save(): void {
+    this.user.name = this.editName;
+    this.router.navigate(['/dashboard/users']);
+  }
+
+  cancel(): void {
+    this.router.navigate(['/dashboard/users']);
   }
 
 }
