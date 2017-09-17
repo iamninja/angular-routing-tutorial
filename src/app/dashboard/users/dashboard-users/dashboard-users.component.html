@@ -1,3 +1,18 @@
-<p>
-  dashboard-users works!
-</p>
+<h2>Users Section</h2>
+<p>Manage your users.</p>
+
+<div class="row">
+  <div class="col-sm-4">
+    <div class="list-group" *ngIf="users">
+      <a class="list-group-item"
+        *ngFor="let user of users"
+        [routerLink]="['/dashboard/users', user.username]" >
+        {{ user.name }}
+      </a>
+    </div>
+  </div>
+
+  <div class="col-sm-8">
+    <router-outlet></router-outlet>
+  </div>
+</div>
