@@ -3,14 +3,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { User } from '../../../shared/models/user';
 import { UserService } from '../../../shared/services/user.service';
+// need?
+import { CanDeactivateGuard } from '../../../shared/guards/can-deactivate.guard';
+
 
 
 @Component({
   selector: 'app-dashboard-user-details',
   templateUrl: './dashboard-user-details.component.html',
   styleUrls: ['./dashboard-user-details.component.css']
-})
-export class DashboardUserDetailsComponent implements OnInit {
+}) // need to implement?
+export class DashboardUserDetailsComponent implements OnInit, CanDeactivateGuard {
 
   user: User;
   editName: string;
@@ -39,6 +42,17 @@ export class DashboardUserDetailsComponent implements OnInit {
 
   cancel(): void {
     this.router.navigate(['/dashboard/users']);
+  }
+
+  canDeactivate(): boolean {
+    console.log('nav away');
+
+    // if editName is not this.user.name
+    if (this.user.name !== this.editName) {
+      return window.confirm('Discard changes?');
+    }
+
+    return true;
   }
 
 }

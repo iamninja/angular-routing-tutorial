@@ -1,6 +1,8 @@
 import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
+import { AuthGuard } from '../shared/guards/auth-guard.guard';
+import { CanDeactivateGuard } from '../shared/guards/can-deactivate.guard';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardUsersComponent } from './users/dashboard-users/dashboard-users.component';
 import { DashboardUsersHomeComponent } from './users/dashboard-users-home/dashboard-users-home.component';
@@ -12,11 +14,13 @@ export const dashboardRoutes: Routes = [
     children: [
       {
         path: '',
+        canActivate: [AuthGuard],
         component: DashboardComponent
       },
       {
         path: 'users',
         component: DashboardUsersComponent,
+        canActivateChild: [AuthGuard],
         children: [
           {
             path: '',
@@ -24,7 +28,8 @@ export const dashboardRoutes: Routes = [
           },
           {
             path: ':username',
-            component: DashboardUserDetailsComponent
+            component: DashboardUserDetailsComponent,
+            canDeactivate: [CanDeactivateGuard]
           }
         ]
       }
